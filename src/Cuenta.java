@@ -4,9 +4,9 @@ public class Cuenta {
     private TipoCuenta tipoDeCuenta;
     private Cliente cliente;
 
-    public Cuenta(String numero, double saldo, TipoCuenta tipo, Cliente cliente) {
+    public Cuenta(String numero, TipoCuenta tipo, Cliente cliente) {
         this.numero = numero;
-        this.saldo = saldo;
+        this.saldo = 0;
         this.tipoDeCuenta = tipo;
         this.cliente = cliente;
     }
