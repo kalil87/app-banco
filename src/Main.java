@@ -24,8 +24,10 @@ public class Main {
         cuenta1.verDatos();
         cuenta2.verDatos();
 
-        banco.abrirCuenta("qwe123", TipoCuenta.CA, cliente1);
-        banco.abrirCuenta("qwe234", TipoCuenta.CA, cliente2);
+        Cuenta cuenta3 = banco.abrirCuenta("qwe123", TipoCuenta.CA, cliente1);
+        Cuenta cuenta4 = banco.abrirCuenta("qwe234", TipoCuenta.CA, cliente2);
+        cuenta3.depositar(10000);
+        cuenta4.depositar(20000);
         banco.verBalance();
     }
 }

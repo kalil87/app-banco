@@ -16,9 +16,10 @@ public class Banco {
         return new ArrayList<>(this.cuentas);
     }
 
-    public void abrirCuenta(String numero, TipoCuenta tipo, Cliente cliente) {
+    public Cuenta abrirCuenta(String numero, TipoCuenta tipo, Cliente cliente) {
         Cuenta cuenta = new Cuenta(numero, tipo, cliente);
         this.cuentas.add(cuenta);
+        return cuenta;
     }
 
     public void verBalance() {
