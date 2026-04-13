@@ -2,11 +2,13 @@ public class Cuenta {
     private String numero;
     private double saldo;
     private TipoCuenta tipoDeCuenta;
+    private Cliente cliente;
 
-    public Cuenta(String numero, double saldo, TipoCuenta tipo) {
+    public Cuenta(String numero, double saldo, TipoCuenta tipo, Cliente cliente) {
         this.numero = numero;
         this.saldo = saldo;
         this.tipoDeCuenta = tipo;
+        this.cliente = cliente;
     }
 
     private double getSaldo() {
@@ -14,6 +16,8 @@ public class Cuenta {
     }
 
     public void verDatos() {
+        System.out.println("cliente: " + cliente.getNombre());
+        System.out.println("dni: " + cliente.getDni());
         System.out.println("cuenta numero: " + numero);
         System.out.println("saldos: " + getSaldo());
         System.out.println("tipo de cuenta: " + tipoDeCuenta + "\n");

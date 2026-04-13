@@ -3,8 +3,10 @@
 public class Main {
     public static void main(String[] args) {
         //probando metodos de Cuenta
-        Cuenta cuenta1 = new Cuenta("abc1", 0, TipoCuenta.CA);
-        Cuenta cuenta2 = new Cuenta("abc2", 0, TipoCuenta.CA);
+        Cliente cliente1 = new Cliente("Juan Gomez", "38123456");
+        Cliente cliente2 = new Cliente("Diego Pereira", "40123456");
+        Cuenta cuenta1 = new Cuenta("abc1", 0, TipoCuenta.CA, cliente1);
+        Cuenta cuenta2 = new Cuenta("abc2", 0, TipoCuenta.CA, cliente2);
 
         cuenta1.verDatos();
         cuenta2.verDatos();
