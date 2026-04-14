@@ -2,30 +2,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Banco {
-    private String nombre;
+    private String numero;
     private String direccion;
-    private List<Cuenta> cuentas;
+    private List<Sucursal> sucursales;
+    private static Banco instancia;
 
-    public Banco(String nombre, String direccion) {
-        this.nombre = nombre;
+    private Banco(String numero, String direccion) {
+        this.numero = numero;
         this.direccion = direccion;
-        this.cuentas = new ArrayList<>();
+        this.sucursales = new ArrayList<>();
     }
-
-    private List<Cuenta> getCuentas() {
-        return new ArrayList<>(this.cuentas);
-    }
-
-    public void abrirCuenta(String numero, TipoCuenta tipo, Cliente cliente) {
-        Cuenta cuenta = new Cuenta(numero, tipo, cliente);
-        this.cuentas.add(cuenta);
-    }
-
-    public void verBalance() {
-        System.out.println("Banco " + nombre + "\n");
-        System.out.println("Balanace:" + "\n");
-        for (Cuenta cuenta:getCuentas()) {
-            cuenta.verDatos();
+    // Se crea singleton para unica instancia
+    public static Banco getInstance(String nombre, String direccion) {
+        if (instancia == null) {
+            instancia = new Banco(nombre, direccion);
         }
+        return instancia;
     }
 }
