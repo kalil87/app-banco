@@ -1,7 +1,7 @@
 package entidades;
 
 public class Cuenta {
-    int id;
+    String id;
     TipoCuenta tipo;
     double saldo;
     Usuario titular;
@@ -15,7 +15,7 @@ public class Cuenta {
     public static class Builder {
         private Cuenta cuenta = new Cuenta();
 
-        public Builder id(int id) {
+        public Builder id(String id) {
             cuenta.id = id;
             return this;
         }
@@ -53,7 +53,7 @@ public class Cuenta {
         return sucursal;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

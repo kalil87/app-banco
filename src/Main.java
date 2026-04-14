@@ -22,33 +22,35 @@ public class Main {
 
         banco.setSucursales(sucursales);
 
-        Cliente c1 = new Cliente("cliente1@mail.com", "1234", "11111111", "Juan Perez");
-        Cliente c2 = new Cliente("cliente2@mail.com", "1234", "22222222", "Maria Gomez");
+//        Cliente c1 = new Cliente("cliente1@mail.com", "1234", "11111111", "Juan Perez");
+//        Cliente c2 = new Cliente("cliente2@mail.com", "1234", "22222222", "Maria Gomez");
+//        Admin a1 = new Admin("admin@mail.com", "admin", "A1", "Admin Principal");
+        Usuario u1 = new Usuario("cliente1@mail.com", "1234", Rol.CLIENTE);
+        Usuario u2 = new Usuario("cliente2@mail.com", "1234", Rol.CLIENTE);
+        Usuario a1 = new Usuario("admin1@mail.com", "admin", Rol.ADMIN);
 
-        Admin a1 = new Admin("admin@mail.com", "admin", "A1", "Admin Principal");
-
-        usuarios.add(c1);
-        usuarios.add(c2);
+        usuarios.add(u1);
+        usuarios.add(u2);
         usuarios.add(a1);
 
         Cuenta cuenta1 = Cuenta.builder()
-                .id(1)
+                .id("1")
                 .tipo(TipoCuenta.CA)
                 .saldo(0)
-                .titular(c1)
+                .titular(u1)
                 .sucursal(s1)
                 .build();
 
         Cuenta cuenta2 = Cuenta.builder()
-                .id(2)
+                .id("2")
                 .tipo(TipoCuenta.CC)
                 .saldo(0)
-                .titular(c2)
+                .titular(u2)
                 .sucursal(s2)
                 .build();
 
-        c1.setCuenta(cuenta1);
-        c2.setCuenta(cuenta2);
+        u1.setCuenta(cuenta1);
+        u2.setCuenta(cuenta2);
 
         s1.agregarCuenta(cuenta1);
         s2.agregarCuenta(cuenta2);
@@ -77,9 +79,8 @@ public class Main {
         // =========================
         // MENU CLIENTE
         // =========================
-        if (usuario instanceof Cliente) {
 
-            Cliente cliente = (Cliente) usuario;
+        if (usuario.getRol() == Rol.CLIENTE) {
 
             int opcion;
 
@@ -98,7 +99,7 @@ public class Main {
                         System.out.println("Monto:");
                         double monto = sc.nextDouble();
 
-                        Cuenta cuenta = cliente.getCuenta(); // suponiendo 1 cuenta
+                        Cuenta cuenta = usuario.getCuenta();
                         Sucursal sucursal = cuenta.getSucursal();
 
                         servicioBancario.depositar(sucursal, cuenta, monto);
@@ -110,7 +111,7 @@ public class Main {
                         System.out.println("Monto:");
                         double monto = sc.nextDouble();
 
-                        Cuenta cuenta = cliente.getCuenta();
+                        Cuenta cuenta = usuario.getCuenta();
                         Sucursal sucursal = cuenta.getSucursal();
 
                         servicioBancario.retirar(sucursal, cuenta, monto);
@@ -122,11 +123,12 @@ public class Main {
                         System.out.println("Monto:");
                         double monto = sc.nextDouble();
 
-                        Cuenta origen = cliente.getCuenta();
+                        Cuenta origen = usuario.getCuenta();
                         Sucursal sucOrigen = origen.getSucursal();
 
                         System.out.println("Cuenta destino:");
-                        int idDestino = sc.nextInt();
+                        sc.nextLine();
+                        String idDestino = sc.nextLine();
 
                         Cuenta destino = buscarCuenta(banco, idDestino);
                         Sucursal sucDestino = destino.getSucursal();
@@ -147,7 +149,7 @@ public class Main {
         // =========================
         // MENU ADMIN
         // =========================
-        if (usuario instanceof Admin) {
+        if (usuario.getRol() == Rol.ADMIN) {
 
             int opcion;
 
@@ -168,10 +170,10 @@ public class Main {
                         Sucursal sucursal = sucursales.get(0);
 
                         Cuenta nueva = Cuenta.builder()
-                                .id(1)
+                                .id("1")
                                 .tipo(TipoCuenta.CA)
                                 .saldo(0)
-                                .titular(c1)
+                                .titular(u1)
                                 .sucursal(sucursal)
                                 .build();
 
@@ -181,7 +183,8 @@ public class Main {
 
                     case 2 -> {
                         System.out.println("ID cuenta:");
-                        int id = sc.nextInt();
+                        sc.nextLine();
+                        String id = sc.nextLine();
 
                         Cuenta cuenta = buscarCuenta(banco, id);
                         Sucursal sucursal = cuenta.getSucursal();
@@ -200,11 +203,11 @@ public class Main {
     // =========================
     // METODO AUXILIAR
     // =========================
-    private static Cuenta buscarCuenta(Banco banco, int id) {
+    private static Cuenta buscarCuenta(Banco banco, String id) {
 
         for (Sucursal s : banco.getSucursales()) {
             for (Cuenta c : s.getCuentas()) {
-                if (c.getId() == id) {
+                if (c.getId().equals(id)) {
                     return c;
                 }
             }
