@@ -1,4 +1,6 @@
-class Cuenta {
+package entidades;
+
+public class Cuenta {
     int id;
     TipoCuenta tipo;
     double saldo;
@@ -41,5 +43,17 @@ class Cuenta {
         public Cuenta build() {
             return cuenta;
         }
+    }
+
+    public double getSaldo() { return saldo; }
+
+    public void setSaldo(double saldo) { this.saldo = saldo; }
+
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+
+    public int getId() {
+        return id;
     }
 }
