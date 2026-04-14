@@ -1,3 +1,5 @@
+package entidades;
+
 public class Admin extends Usuario {
     private String id;
     private String nombre;

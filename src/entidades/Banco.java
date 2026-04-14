@@ -1,3 +1,5 @@
+package entidades;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,5 +20,13 @@ public class Banco {
             instancia = new Banco(nombre, direccion);
         }
         return instancia;
+    }
+
+    public List<Sucursal> getSucursales() {
+        return sucursales;
+    }
+
+    public void setSucursales(List<Sucursal> sucursales) {
+        this.sucursales = sucursales;
     }
 }
