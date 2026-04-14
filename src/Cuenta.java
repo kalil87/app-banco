@@ -1,42 +1,45 @@
-public class Cuenta {
-    private String numero;
-    private double saldo;
-    private TipoCuenta tipoDeCuenta;
-    private Cliente cliente;
+class Cuenta {
+    int id;
+    TipoCuenta tipo;
+    double saldo;
+    Usuario titular;
+    Sucursal sucursal;
 
-    public Cuenta(String numero, TipoCuenta tipo, Cliente cliente) {
-        this.numero = numero;
-        this.saldo = 0;
-        this.tipoDeCuenta = tipo;
-        this.cliente = cliente;
+    // Se crea Builder por cantidad de atributos
+    public static Builder builder() {
+        return new Builder();
     }
 
-    private double getSaldo() {
-        return saldo;
-    }
+    public static class Builder {
+        private Cuenta cuenta = new Cuenta();
 
-    public void verDatos() {
-        System.out.println("cliente: " + cliente.getNombre());
-        System.out.println("dni: " + cliente.getDni());
-        System.out.println("cuenta numero: " + numero);
-        System.out.println("saldos: " + getSaldo());
-        System.out.println("tipo de cuenta: " + tipoDeCuenta + "\n");
-    }
+        public Builder id(int id) {
+            cuenta.id = id;
+            return this;
+        }
 
-    private void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
+        public Builder tipo(TipoCuenta tipo) {
+            cuenta.tipo = tipo;
+            return this;
+        }
 
-    public void depositar(double monto) {
-        setSaldo(this.saldo + monto);
-    }
+        public Builder saldo(double saldo) {
+            cuenta.saldo = saldo;
+            return this;
+        }
 
-    public void retirar(double monto) {
-        setSaldo(this.saldo - monto);
-    }
+        public Builder titular(Usuario titular) {
+            cuenta.titular = titular;
+            return this;
+        }
 
-    public void transferir(Cuenta cuentaDestino, double monto) {
-        retirar(monto);
-        cuentaDestino.depositar(monto);
+        public Builder sucursal(Sucursal sucursal) {
+            cuenta.sucursal = sucursal;
+            return this;
+        }
+
+        public Cuenta build() {
+            return cuenta;
+        }
     }
 }
