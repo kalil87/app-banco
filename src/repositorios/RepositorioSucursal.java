@@ -18,7 +18,7 @@ public class RepositorioSucursal {
 
     public Sucursal buscarPorId(String numero) {
         return sucursales.stream()
-                .filter(c -> c.getNumero().equals(numero))
+                .filter(suc -> suc.getNumero().equals(numero))
                 .findFirst()
                 .orElse(null);
     }

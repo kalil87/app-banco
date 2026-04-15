@@ -1,16 +1,17 @@
 package menu;
 
-import entidades.Banco;
 import entidades.Cuenta;
 import entidades.Sucursal;
 import entidades.Usuario;
+import servicios.ServicioCuenta;
 import servicios.ServicioTransaccion;
+import servicios.ServicioUsuario;
 
 import java.util.Scanner;
 
 public class MenuCliente {
-    public static void iniciar(Usuario usuario, Banco banco) {
-        ServicioTransaccion servicioTransaccion = new ServicioTransaccion();
+    public static void iniciar(Usuario usuario, ServicioUsuario servicioUsuario,
+    ServicioCuenta servicioCuenta, ServicioTransaccion servicioTransaccion) {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
@@ -29,44 +30,41 @@ public class MenuCliente {
                     System.out.println("Monto:");
                     double monto = sc.nextDouble();
 
-                    Cuenta cuenta = usuario.getCuenta();
-                    Sucursal sucursal = cuenta.getSucursal();
+                    Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
+                    Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
                     servicioTransaccion.depositar(sucursal, cuenta, monto);
                     System.out.println("Se ingresaron: $" + monto);
-                    System.out.println("Su saldo actual es de: $" + cuenta.getSaldo());
+                    System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
 
                 case 2 -> {
                     System.out.println("Monto:");
                     double monto = sc.nextDouble();
 
-                    Cuenta cuenta = usuario.getCuenta();
-                    Sucursal sucursal = cuenta.getSucursal();
+                    Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
+                    Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
                     servicioTransaccion.retirar(sucursal, cuenta, monto);
                     System.out.println("Se retiraron: $" + monto);
-                    System.out.println("Su saldo actual es de: $" + cuenta.getSaldo());
+                    System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
 
                 case 3 -> {
                     System.out.println("Monto:");
                     double monto = sc.nextDouble();
 
-                    Cuenta origen = usuario.getCuenta();
-                    Sucursal sucOrigen = origen.getSucursal();
+                    Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
+                    Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
-                    System.out.println("Cuenta destino:");
+                    System.out.println("CBU destino:");
                     sc.nextLine();
                     String cbuDestino = sc.nextLine();
 
-                    servicioTransaccion.transferir(
-                            sucOrigen, origen,
-                             cbuDestino,
-                            monto
-                    );
+                    servicioTransaccion.transferir(sucursal, cuenta, cbuDestino, monto);
+
                     System.out.println("Se transfirieron: $" + monto + " a la cuenta con CBU " + cbuDestino);
-                    System.out.println("Su saldo actual es de: $" + origen.getSaldo());
+                    System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
             }
 
