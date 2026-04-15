@@ -1,19 +1,18 @@
 package app;
 
-import entidades.Banco;
+import app.config.DatosIniciales;
+import app.config.InicializarDatos;
 import entidades.Rol;
-import entidades.Sucursal;
 import entidades.Usuario;
 import menu.MenuAdmin;
 import menu.MenuCliente;
 import menu.MenuLogin;
 
-import java.util.List;
-
 public class App {
 
-    public static void run(List<Usuario> usuarios, Banco banco, List<Sucursal> sucursales) {
-        Usuario usuario = MenuLogin.iniciar(usuarios);
+    public static void run() {
+        DatosIniciales datos = InicializarDatos.cargar();
+        Usuario usuario = MenuLogin.iniciar(datos.getUsuarios());
 
         if (usuario == null) {
             System.out.println("Error al iniciar sesión");
@@ -21,9 +20,9 @@ public class App {
         }
 
         if (usuario.getRol() == Rol.ADMIN) {
-            MenuAdmin.iniciar(usuario,banco, sucursales);
+            MenuAdmin.iniciar(usuario,datos.getBanco(), datos.getSucursales());
         } else if (usuario.getRol() == Rol.CLIENTE) {
-            MenuCliente.iniciar(usuario, banco);
+            MenuCliente.iniciar(usuario, datos.getBanco());
         } else {
             System.out.println("Rol no reconocido");
         }

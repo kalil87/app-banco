@@ -1,16 +1,18 @@
 package menu;
 
+import app.config.DatosIniciales;
+import app.config.InicializarDatos;
 import entidades.Banco;
 import entidades.Cuenta;
 import entidades.Sucursal;
 import entidades.Usuario;
-import servicios.ServicioBancario;
+import servicios.ServicioTransaccion;
 
 import java.util.Scanner;
 
 public class MenuCliente {
     public static void iniciar(Usuario usuario, Banco banco) {
-        ServicioBancario servicioBancario = new ServicioBancario(banco);
+        ServicioTransaccion servicioTransaccion = new ServicioTransaccion();
         Scanner sc = new Scanner(System.in);
         int opcion;
 
@@ -32,7 +34,7 @@ public class MenuCliente {
                     Cuenta cuenta = usuario.getCuenta();
                     Sucursal sucursal = cuenta.getSucursal();
 
-                    servicioBancario.depositar(sucursal, cuenta, monto);
+                    servicioTransaccion.depositar(sucursal, cuenta, monto);
                     System.out.println("Se ingresaron: $" + monto);
                     System.out.println("Su saldo actual es de: $" + cuenta.getSaldo());
                 }
@@ -44,7 +46,7 @@ public class MenuCliente {
                     Cuenta cuenta = usuario.getCuenta();
                     Sucursal sucursal = cuenta.getSucursal();
 
-                    servicioBancario.retirar(sucursal, cuenta, monto);
+                    servicioTransaccion.retirar(sucursal, cuenta, monto);
                     System.out.println("Se retiraron: $" + monto);
                     System.out.println("Su saldo actual es de: $" + cuenta.getSaldo());
                 }
@@ -63,7 +65,7 @@ public class MenuCliente {
                     Cuenta destino = buscarCuenta(banco, idDestino);
                     Sucursal sucDestino = destino.getSucursal();
 
-                    servicioBancario.transferir(
+                    servicioTransaccion.transferir(
                             sucOrigen, origen,
                             sucDestino, destino,
                             monto
