@@ -1,17 +1,18 @@
 package menu;
 
-import app.config.DatosIniciales;
-import app.config.InicializarDatos;
 import entidades.*;
+import repositorios.RepositorioCuenta;
+import repositorios.RepositorioSucursal;
 import servicios.ServicioCuenta;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class MenuAdmin {
-    public static void iniciar(Usuario usuario, Banco banco, List<Sucursal> sucursales) {
+    public static void iniciar(Usuario usuario, Banco banco, List<Sucursal> sucursales,
+    RepositorioCuenta repoC, RepositorioSucursal repoS) {
         Scanner sc = new Scanner(System.in);
-        ServicioCuenta servicioCuenta = new ServicioCuenta(banco);
+        ServicioCuenta servicioCuenta = new ServicioCuenta(repoC, repoS);
         int opcion;
 
         do {
@@ -21,6 +22,7 @@ public class MenuAdmin {
             System.out.println("0 Salir");
 
             opcion = sc.nextInt();
+            sc.nextLine();
 
             switch (opcion) {
 
@@ -43,31 +45,17 @@ public class MenuAdmin {
                 }
 
                 case 2 -> {
+                    System.out.println("Numero de Sucursal:");
+                    String numero = sc.nextLine();
+
                     System.out.println("ID cuenta:");
-                    sc.nextLine();
                     String id = sc.nextLine();
 
-                    Cuenta cuenta = buscarCuenta(banco, id);
-                    Sucursal sucursal = cuenta.getSucursal();
-
-                    servicioCuenta.eliminarCuenta(sucursal, cuenta);
-                    System.out.println("Se elimino la cuenta numero: " + cuenta.getId());
+                    servicioCuenta.eliminarCuenta(numero, id);
+                    System.out.println("Se elimino la cuenta numero: " + id + " de la Sucursal " + numero);
                 }
             }
 
         } while (opcion != 0);
-    }
-
-        private static Cuenta buscarCuenta(Banco banco, String id) {
-
-        for (Sucursal s : banco.getSucursales()) {
-            for (Cuenta c : s.getCuentas()) {
-                if (c.getId().equals(id)) {
-                    return c;
-                }
-            }
-        }
-
-        return null;
     }
 }

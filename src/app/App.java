@@ -7,11 +7,16 @@ import entidades.Usuario;
 import menu.MenuAdmin;
 import menu.MenuCliente;
 import menu.MenuLogin;
+import repositorios.RepositorioCuenta;
+import repositorios.RepositorioSucursal;
 
 public class App {
 
     public static void run() {
-        DatosIniciales datos = InicializarDatos.cargar();
+        RepositorioCuenta repoC = new RepositorioCuenta();
+        RepositorioSucursal repoS = new RepositorioSucursal();
+        DatosIniciales datos = InicializarDatos.cargar(repoC, repoS);
+
         Usuario usuario = MenuLogin.iniciar(datos.getUsuarios());
 
         if (usuario == null) {
@@ -20,7 +25,7 @@ public class App {
         }
 
         if (usuario.getRol() == Rol.ADMIN) {
-            MenuAdmin.iniciar(usuario,datos.getBanco(), datos.getSucursales());
+            MenuAdmin.iniciar(usuario,datos.getBanco(), datos.getSucursales(), repoC, repoS);
         } else if (usuario.getRol() == Rol.CLIENTE) {
             MenuCliente.iniciar(usuario, datos.getBanco());
         } else {

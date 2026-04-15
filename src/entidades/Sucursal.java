@@ -21,4 +21,8 @@ public class Sucursal {
     public void agregarCuenta(Cuenta cuenta) {
         cuentas.add(cuenta);
     }
+
+    public String getNumero() {
+        return numero;
+    }
 }

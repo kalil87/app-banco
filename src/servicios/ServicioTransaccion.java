@@ -24,18 +24,15 @@ public class ServicioTransaccion {
     }
 
     public void transferir(Sucursal sucOrigen, Cuenta origen,
-                           Sucursal sucDestino, Cuenta destino,
-                           double monto) {
+                           String cbuDestino, double monto) {
 
         validarCuentaEnSucursal(sucOrigen, origen);
-        validarCuentaEnSucursal(sucDestino, destino);
 
         if (origen.getSaldo() < monto) {
             throw new RuntimeException("Saldo insuficiente");
         }
 
         origen.setSaldo(origen.getSaldo() - monto);
-        destino.setSaldo(destino.getSaldo() + monto);
     }
 
     private void validarCuentaEnSucursal(Sucursal sucursal, Cuenta cuenta) {

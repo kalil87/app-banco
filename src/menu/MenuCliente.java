@@ -1,7 +1,5 @@
 package menu;
 
-import app.config.DatosIniciales;
-import app.config.InicializarDatos;
 import entidades.Banco;
 import entidades.Cuenta;
 import entidades.Sucursal;
@@ -60,34 +58,18 @@ public class MenuCliente {
 
                     System.out.println("Cuenta destino:");
                     sc.nextLine();
-                    String idDestino = sc.nextLine();
-
-                    Cuenta destino = buscarCuenta(banco, idDestino);
-                    Sucursal sucDestino = destino.getSucursal();
+                    String cbuDestino = sc.nextLine();
 
                     servicioTransaccion.transferir(
                             sucOrigen, origen,
-                            sucDestino, destino,
+                             cbuDestino,
                             monto
                     );
-                    System.out.println("Se transfirieron: $" +monto + " a la cuenta " + destino.getId());
+                    System.out.println("Se transfirieron: $" + monto + " a la cuenta con CBU " + cbuDestino);
                     System.out.println("Su saldo actual es de: $" + origen.getSaldo());
                 }
             }
 
         } while (opcion != 0);
-    }
-
-        private static Cuenta buscarCuenta(Banco banco, String id) {
-
-        for (Sucursal s : banco.getSucursales()) {
-            for (Cuenta c : s.getCuentas()) {
-                if (c.getId().equals(id)) {
-                    return c;
-                }
-            }
-        }
-
-        return null;
     }
 }
