@@ -1,12 +1,14 @@
 package app.config;
 
 import entidades.*;
+import repositorios.RepositorioCuenta;
+import repositorios.RepositorioSucursal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InicializarDatos {
-    public static DatosIniciales cargar() {
+    public static DatosIniciales cargar(RepositorioCuenta repoC, RepositorioSucursal repoS) {
 
         List<Usuario> usuarios = new ArrayList<>();
         List<Sucursal> sucursales = new ArrayList<>();
@@ -19,6 +21,9 @@ public class InicializarDatos {
 
         sucursales.add(s1);
         sucursales.add(s2);
+
+        repoS.guardar(s1);
+        repoS.guardar(s2);
 
         banco.setSucursales(sucursales);
 
@@ -53,6 +58,9 @@ public class InicializarDatos {
 
         s1.agregarCuenta(c1);
         s2.agregarCuenta(c2);
+
+        repoC.guardar(c1);
+        repoC.guardar(c2);
 
         return new DatosIniciales(banco, usuarios, sucursales);
     }
