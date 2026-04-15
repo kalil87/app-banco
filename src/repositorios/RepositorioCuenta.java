@@ -18,7 +18,7 @@ public class RepositorioCuenta {
 
     public Cuenta buscarPorId(String id) {
         return cuentas.stream()
-                .filter(c -> c.getId().equals(id))
+                .filter(cue -> cue.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }

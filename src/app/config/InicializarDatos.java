@@ -1,40 +1,30 @@
 package app.config;
 
 import entidades.*;
-import repositorios.RepositorioCuenta;
-import repositorios.RepositorioSucursal;
-
-import java.util.ArrayList;
-import java.util.List;
+import servicios.ServicioCuenta;
+import servicios.ServicioUsuario;
 
 public class InicializarDatos {
-    public static DatosIniciales cargar(RepositorioCuenta repoC, RepositorioSucursal repoS) {
-
-        List<Usuario> usuarios = new ArrayList<>();
-        List<Sucursal> sucursales = new ArrayList<>();
+    public static void cargar(ServicioCuenta servicioC, ServicioUsuario servicioU) {
 
         Banco banco = Banco.getInstance("Banco", "Argentina");
+        banco.setSucursales(servicioC.obtenerSucursales());
 
         // sucursales
         Sucursal s1 = new Sucursal("001", "Centro");
         Sucursal s2 = new Sucursal("002", "Palermo");
 
-        sucursales.add(s1);
-        sucursales.add(s2);
-
-        repoS.guardar(s1);
-        repoS.guardar(s2);
-
-        banco.setSucursales(sucursales);
+        servicioC.guardarSucursal(s1);
+        servicioC.guardarSucursal(s2);
 
         // usuarios
         Usuario u1 = new Usuario("cliente1@mail.com", "1234", Rol.CLIENTE);
         Usuario u2 = new Usuario("cliente2@mail.com", "1234", Rol.CLIENTE);
         Usuario a1 = new Usuario("admin1@mail.com", "admin", Rol.ADMIN);
 
-        usuarios.add(u1);
-        usuarios.add(u2);
-        usuarios.add(a1);
+        servicioU.guardar(u1);
+        servicioU.guardar(u2);
+        servicioU.guardar(a1);
 
         // cuentas
         Cuenta c1 = Cuenta.builder()
@@ -59,9 +49,7 @@ public class InicializarDatos {
         s1.agregarCuenta(c1);
         s2.agregarCuenta(c2);
 
-        repoC.guardar(c1);
-        repoC.guardar(c2);
-
-        return new DatosIniciales(banco, usuarios, sucursales);
+        servicioC.guardarCuenta(c1);
+        servicioC.guardarCuenta(c2);
     }
 }
