@@ -1,41 +1,10 @@
 package servicios;
 
-import entidades.*;
+import entidades.Cuenta;
+import entidades.Sucursal;
 
-public class ServicioBancario {
-    private Banco banco;
+public class ServicioTransaccion {
 
-    public ServicioBancario(Banco banco) {
-        this.banco = banco;
-    }
-
-    // =========================
-    // CREAR CUENTA
-    // =========================
-    public void crearCuenta(Sucursal sucursal, Cuenta cuenta) {
-
-        if (!banco.getSucursales().contains(sucursal)) {
-            throw new RuntimeException("Sucursal no pertenece al banco");
-        }
-
-        sucursal.getCuentas().add(cuenta);
-    }
-
-    // =========================
-    // ELIMINAR CUENTA
-    // =========================
-    public void eliminarCuenta(Sucursal sucursal, Cuenta cuenta) {
-
-        if (!sucursal.getCuentas().contains(cuenta)) {
-            throw new RuntimeException("La cuenta no pertenece a la sucursal");
-        }
-
-        sucursal.getCuentas().remove(cuenta);
-    }
-
-    // =========================
-    // DEPOSITAR
-    // =========================
     public void depositar(Sucursal sucursal, Cuenta cuenta, double monto) {
 
         validarCuentaEnSucursal(sucursal, cuenta);
@@ -43,9 +12,6 @@ public class ServicioBancario {
         cuenta.setSaldo(cuenta.getSaldo() + monto);
     }
 
-    // =========================
-    // RETIRAR
-    // =========================
     public void retirar(Sucursal sucursal, Cuenta cuenta, double monto) {
 
         validarCuentaEnSucursal(sucursal, cuenta);
@@ -57,9 +23,6 @@ public class ServicioBancario {
         cuenta.setSaldo(cuenta.getSaldo() - monto);
     }
 
-    // =========================
-    // TRANSFERENCIA
-    // =========================
     public void transferir(Sucursal sucOrigen, Cuenta origen,
                            Sucursal sucDestino, Cuenta destino,
                            double monto) {
@@ -75,9 +38,6 @@ public class ServicioBancario {
         destino.setSaldo(destino.getSaldo() + monto);
     }
 
-    // =========================
-    // VALIDACION CENTRAL
-    // =========================
     private void validarCuentaEnSucursal(Sucursal sucursal, Cuenta cuenta) {
 
         if (!sucursal.getCuentas().contains(cuenta)) {

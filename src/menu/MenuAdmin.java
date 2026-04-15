@@ -1,7 +1,9 @@
 package menu;
 
+import app.config.DatosIniciales;
+import app.config.InicializarDatos;
 import entidades.*;
-import servicios.ServicioBancario;
+import servicios.ServicioCuenta;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ import java.util.Scanner;
 public class MenuAdmin {
     public static void iniciar(Usuario usuario, Banco banco, List<Sucursal> sucursales) {
         Scanner sc = new Scanner(System.in);
-        ServicioBancario servicioBancario = new ServicioBancario(banco);
+        ServicioCuenta servicioCuenta = new ServicioCuenta(banco);
         int opcion;
 
         do {
@@ -36,7 +38,7 @@ public class MenuAdmin {
                             .sucursal(sucursal)
                             .build();
 
-                    servicioBancario.crearCuenta(sucursal, nueva);
+                    servicioCuenta.crearCuenta(sucursal, nueva);
                     System.out.println("Se creo la cuenta numero: " + nueva.getId());
                 }
 
@@ -48,7 +50,7 @@ public class MenuAdmin {
                     Cuenta cuenta = buscarCuenta(banco, id);
                     Sucursal sucursal = cuenta.getSucursal();
 
-                    servicioBancario.eliminarCuenta(sucursal, cuenta);
+                    servicioCuenta.eliminarCuenta(sucursal, cuenta);
                     System.out.println("Se elimino la cuenta numero: " + cuenta.getId());
                 }
             }
