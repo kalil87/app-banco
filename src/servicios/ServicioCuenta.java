@@ -61,7 +61,7 @@ public class ServicioCuenta {
 
     public void validarCuenta(Cuenta c) {
         if (c == null) {
-            throw new RuntimeException("Cuenta no permitida");
+            throw new RuntimeException("Cuenta no valida");
         }
     }
 
@@ -77,6 +77,14 @@ public class ServicioCuenta {
             throw new RuntimeException("Cuenta no pertenece a la sucursal");
         }
         return cuenta.getSaldo();
+    }
+
+    public Cuenta obtenerCuentaPorId(String numero) {
+        Cuenta c = repoC.buscarPorId(numero);
+        if (c == null) {
+            throw new RuntimeException("Cuenta inexistente");
+        }
+        return c;
     }
 
     public List<Sucursal> obtenerSucursales(){

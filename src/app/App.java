@@ -25,18 +25,8 @@ public class App {
 
         InicializarDatos.cargar(servicioCuenta, servicioUsuario);
 
-        Usuario usuario = MenuLogin.iniciar(servicioUsuario);
-
-        if (usuario == null) {
-            return;
-        }
-
-        if (usuario.getRol() == Rol.ADMIN) {
-            MenuAdmin.iniciar(servicioCuenta, servicioUsuario);
-        } else if (usuario.getRol() == Rol.CLIENTE) {
-            MenuCliente.iniciar(usuario, servicioUsuario, servicioCuenta, servicioTransaccion);
-        } else {
-            System.out.println("Rol no reconocido");
+        while (true) {
+            NavegadorMenus.iniciar(servicioUsuario, servicioCuenta, servicioTransaccion);
         }
     }
 }
