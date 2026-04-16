@@ -1,6 +1,7 @@
 package servicios;
 
 import entidades.Cuenta;
+import entidades.Rol;
 import entidades.Usuario;
 import repositorios.RepositorioUsuario;
 
@@ -39,5 +40,15 @@ public class ServicioUsuario {
         if (u == null) {
             throw new RuntimeException("Usuario no permitido");
         }
+    }
+
+    public void vincularCuenta(Usuario u, Cuenta c) {
+        u.setCuenta(c);
+    }
+
+    public Usuario crearUsuario(String email, String password) {
+        Usuario u = new Usuario(email, password, Rol.CLIENTE);
+        repo.guardar(u);
+        return u;
     }
 }
