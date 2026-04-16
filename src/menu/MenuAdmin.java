@@ -23,29 +23,36 @@ public class MenuAdmin {
             switch (opcion) {
 
                 case 1 -> {
-                    // ejemplo simple para no ingresar mucho en teclado
-                    System.out.println("Crear cuenta (simulado)");
-                    System.out.println("Numero de Sucursal:");
-                    String numero = sc.nextLine();
+                    System.out.println("=== Crear cuenta ===");
 
-                    Sucursal sucursal = servicioCuenta.validarSucursal(numero);
+                    System.out.print("Numero de sucursal: ");
+                    String numeroSucursal = sc.nextLine();
 
-                    Usuario usuarioNuevo = new Usuario("cliente3@mail.com", "1234", Rol.CLIENTE);
+                    Sucursal sucursal = servicioCuenta.validarSucursal(numeroSucursal);
 
-                    servicioUsuario.validarUsuario(usuarioNuevo); //por ahora solo valida que no sea null
+                    System.out.print("Email del usuario: ");
+                    String email = sc.nextLine();
 
-                    Cuenta cuentaNueva = Cuenta.builder()
-                            .id("1")
-                            .tipo(TipoCuenta.CA)
-                            .saldo(0)
-                            .titular(usuarioNuevo)
-                            .sucursal(sucursal)
-                            .build();
+                    System.out.print("Password: ");
+                    String password = sc.nextLine();
 
-                    servicioCuenta.validarCuenta(cuentaNueva); //por ahora solo valida que no sea null
+                    Usuario usuarioNuevo = servicioUsuario.crearUsuario(email, password);
+                    servicioUsuario.validarUsuario(usuarioNuevo);
+                    servicioUsuario.guardar(usuarioNuevo);
 
-                    servicioCuenta.crearCuenta(sucursal, cuentaNueva);
-                    System.out.println("Se creo la cuenta numero: " + servicioCuenta.obtenerIdCuenta(cuentaNueva));
+                    System.out.print("ID de la cuenta: ");
+                    String idCuenta = sc.nextLine();
+
+                    System.out.print("Tipo de cuenta (CA/CC): ");
+                    String tipo = sc.nextLine();
+
+                    TipoCuenta tipoCuenta = TipoCuenta.valueOf(tipo.toUpperCase());
+
+                    Cuenta cuentaNueva = servicioCuenta.crearCuenta(idCuenta, tipoCuenta, usuarioNuevo, sucursal);
+
+                    servicioUsuario.vincularCuenta(usuarioNuevo, cuentaNueva);
+
+                    System.out.println("Se creó la cuenta número: " + idCuenta);
                 }
 
                 case 2 -> {

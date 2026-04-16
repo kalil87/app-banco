@@ -2,6 +2,8 @@ package servicios;
 
 import entidades.Cuenta;
 import entidades.Sucursal;
+import entidades.TipoCuenta;
+import entidades.Usuario;
 import repositorios.RepositorioCuenta;
 import repositorios.RepositorioSucursal;
 
@@ -24,11 +26,23 @@ public class ServicioCuenta {
         repoS.guardar(s);
     }
 
-    public void crearCuenta(Sucursal sucursal, Cuenta cuenta) {
+    public Cuenta crearCuenta(String id, TipoCuenta t, Usuario u, Sucursal s) {
+
+        Cuenta cuenta = Cuenta.builder()
+                .id(id)
+                .tipo(t)
+                .saldo(0)
+                .titular(u)
+                .sucursal(s)
+                .build();
+
+        validarCuenta(cuenta);
 
         repoC.guardar(cuenta);
 
-        sucursal.getCuentas().add(cuenta);
+        s.getCuentas().add(cuenta);
+
+        return cuenta;
     }
 
     public void eliminarCuenta(String numeroSucursal, String numeroCuenta) {
