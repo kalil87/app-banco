@@ -54,18 +54,18 @@ public class MenuCliente {
                     System.out.println("Monto:");
                     double monto = sc.nextDouble();
 
-                    Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
-                    Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
+                    Cuenta origen = servicioUsuario.obtenerCuenta(usuario);
+                    Sucursal sucursal = servicioCuenta.obtenerSucursal(origen);
 
                     System.out.println("Cuenta destino numero:");
                     sc.nextLine();
                     String numero = sc.nextLine();
 
                     Cuenta destino = servicioCuenta.obtenerCuentaPorId(numero);
-                    servicioTransaccion.transferir(cuenta, destino, monto);
+                    servicioTransaccion.transferir(origen, destino, monto);
 
                     System.out.println("Se transfirieron: $" + monto + " a la cuenta numero " + numero);
-                    System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
+                    System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(origen));
                 }
             }
 

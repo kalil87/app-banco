@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sucursal {
-    String numero;
-    String direccion;
-    List<Cuenta> cuentas;
+    private String numero;
+    private String direccion;
+    private List<Cuenta> cuentas;
 
     public Sucursal(String numero, String direccion) {
         this.numero = numero;

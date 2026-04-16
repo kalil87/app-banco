@@ -10,6 +10,7 @@ public class MenuLogin {
     public static Usuario iniciar(ServicioUsuario servicioUsuario) {
         Scanner sc = new Scanner(System.in);
 
+        System.out.println("\n--- LOGIN ---");
         System.out.println("EMAIL:");
         String email = sc.nextLine();
 
