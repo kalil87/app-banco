@@ -1,13 +1,12 @@
 package entidades;
 
 public class Cuenta {
-    String id;
-    TipoCuenta tipo;
-    double saldo;
-    Usuario titular;
-    Sucursal sucursal;
+    private String id;
+    private TipoCuenta tipo;
+    private double saldo;
+    private Usuario titular;
+    private Sucursal sucursal;
 
-    // Se crea Builder por cantidad de atributos
     public static Builder builder() {
         return new Builder();
     }

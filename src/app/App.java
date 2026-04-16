@@ -1,11 +1,6 @@
 package app;
 
 import app.config.InicializarDatos;
-import entidades.Rol;
-import entidades.Usuario;
-import menu.MenuAdmin;
-import menu.MenuCliente;
-import menu.MenuLogin;
 import repositorios.RepositorioCuenta;
 import repositorios.RepositorioSucursal;
 import repositorios.RepositorioUsuario;

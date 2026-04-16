@@ -1,7 +1,6 @@
 package servicios;
 
 import entidades.Cuenta;
-import entidades.Sucursal;
 
 public class ServicioTransaccion {
 

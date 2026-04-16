@@ -10,14 +10,12 @@ public class InicializarDatos {
         Banco banco = Banco.getInstance("Banco", "Argentina");
         banco.setSucursales(servicioC.obtenerSucursales());
 
-        // sucursales
         Sucursal s1 = new Sucursal("001", "Centro");
         Sucursal s2 = new Sucursal("002", "Palermo");
 
         servicioC.guardarSucursal(s1);
         servicioC.guardarSucursal(s2);
 
-        // usuarios
         Usuario u1 = new Usuario("cliente1@mail.com", "1234", Rol.CLIENTE);
         Usuario u2 = new Usuario("cliente2@mail.com", "1234", Rol.CLIENTE);
         Usuario a1 = new Usuario("admin1@mail.com", "admin", Rol.ADMIN);
@@ -26,7 +24,6 @@ public class InicializarDatos {
         servicioU.guardar(u2);
         servicioU.guardar(a1);
 
-        // cuentas
         Cuenta c1 = Cuenta.builder()
                 .id("1")
                 .tipo(TipoCuenta.CA)
