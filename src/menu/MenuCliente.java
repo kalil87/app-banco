@@ -33,7 +33,7 @@ public class MenuCliente {
                     Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
                     Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
-                    servicioTransaccion.depositar(sucursal, cuenta, monto);
+                    servicioTransaccion.depositar(cuenta, monto);
                     System.out.println("Se ingresaron: $" + monto);
                     System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
@@ -45,7 +45,7 @@ public class MenuCliente {
                     Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
                     Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
-                    servicioTransaccion.retirar(sucursal, cuenta, monto);
+                    servicioTransaccion.retirar(cuenta, monto);
                     System.out.println("Se retiraron: $" + monto);
                     System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
@@ -57,13 +57,14 @@ public class MenuCliente {
                     Cuenta cuenta = servicioUsuario.obtenerCuenta(usuario);
                     Sucursal sucursal = servicioCuenta.obtenerSucursal(cuenta);
 
-                    System.out.println("CBU destino:");
+                    System.out.println("Cuenta destino numero:");
                     sc.nextLine();
-                    String cbuDestino = sc.nextLine();
+                    String numero = sc.nextLine();
 
-                    servicioTransaccion.transferir(sucursal, cuenta, cbuDestino, monto);
+                    Cuenta destino = servicioCuenta.obtenerCuentaPorId(numero);
+                    servicioTransaccion.transferir(cuenta, destino, monto);
 
-                    System.out.println("Se transfirieron: $" + monto + " a la cuenta con CBU " + cbuDestino);
+                    System.out.println("Se transfirieron: $" + monto + " a la cuenta numero " + numero);
                     System.out.println("Su saldo actual es de: $" + servicioCuenta.obtenerSaldo(cuenta));
                 }
             }

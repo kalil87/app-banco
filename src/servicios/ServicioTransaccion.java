@@ -5,16 +5,11 @@ import entidades.Sucursal;
 
 public class ServicioTransaccion {
 
-    public void depositar(Sucursal sucursal, Cuenta cuenta, double monto) {
-
-        validarCuentaEnSucursal(sucursal, cuenta);
-
+    public void depositar(Cuenta cuenta, double monto) {
         cuenta.setSaldo(cuenta.getSaldo() + monto);
     }
 
-    public void retirar(Sucursal sucursal, Cuenta cuenta, double monto) {
-
-        validarCuentaEnSucursal(sucursal, cuenta);
+    public void retirar(Cuenta cuenta, double monto) {
 
         if (cuenta.getSaldo() < monto) {
             throw new RuntimeException("Saldo insuficiente");
@@ -23,22 +18,13 @@ public class ServicioTransaccion {
         cuenta.setSaldo(cuenta.getSaldo() - monto);
     }
 
-    public void transferir(Sucursal sucOrigen, Cuenta origen,
-                           String cbuDestino, double monto) {
-
-        validarCuentaEnSucursal(sucOrigen, origen);
+    public void transferir(Cuenta origen, Cuenta destino, double monto) {
 
         if (origen.getSaldo() < monto) {
             throw new RuntimeException("Saldo insuficiente");
         }
 
         origen.setSaldo(origen.getSaldo() - monto);
-    }
-
-    private void validarCuentaEnSucursal(Sucursal sucursal, Cuenta cuenta) {
-
-        if (!sucursal.getCuentas().contains(cuenta)) {
-            throw new RuntimeException("Cuenta no pertenece a la sucursal");
-        }
+        destino.setSaldo(destino.getSaldo() + monto);
     }
 }
