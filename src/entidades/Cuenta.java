@@ -55,4 +55,8 @@ public class Cuenta {
     public String getId() {
         return id;
     }
+
+    public Usuario getTitular() {
+        return titular;
+    }
 }

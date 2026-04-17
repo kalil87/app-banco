@@ -1,13 +1,14 @@
 package menu;
 
 import entidades.*;
+import servicios.ServicioBanco;
 import servicios.ServicioCuenta;
 import servicios.ServicioUsuario;
 
 import java.util.Scanner;
 
 public class MenuAdmin {
-    public static void iniciar(ServicioCuenta servicioCuenta, ServicioUsuario servicioUsuario) {
+    public static void iniciar(ServicioCuenta servicioCuenta, ServicioUsuario servicioUsuario, ServicioBanco servicioBanco) {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
@@ -15,6 +16,8 @@ public class MenuAdmin {
             System.out.println("\n--- MENU ADMIN ---");
             System.out.println("1 Crear cuenta");
             System.out.println("2 Eliminar cuenta");
+            System.out.println("3 Ver balance global");
+            System.out.println("4 Ver balance por sucursal");
             System.out.println("0 Salir");
 
             opcion = sc.nextInt();
@@ -62,8 +65,24 @@ public class MenuAdmin {
                     System.out.println("ID cuenta:");
                     String idCuenta = sc.nextLine();
 
-                    servicioCuenta.eliminarCuenta(numeroSucursal, idCuenta);
+                    Cuenta cuenta = servicioCuenta.obtenerCuentaPorId(idCuenta);
+                    servicioCuenta.eliminarCuenta(cuenta);
+                    servicioUsuario.eliminarUsuarioPorCuenta(cuenta);
+
                     System.out.println("Se elimino la cuenta numero: " + idCuenta + " de la Sucursal " + numeroSucursal);
+                }
+
+                case 3 -> {
+                    double total = servicioBanco.balanceGlobal();
+                    System.out.println("Balance global: " + total);
+                }
+
+                case 4 -> {
+                    System.out.print("Numero de sucursal: ");
+                    String numero = sc.nextLine();
+
+                    double total = servicioBanco.balancePorSucursal(numero);
+                    System.out.println("Balance sucursal: " + total);
                 }
             }
 

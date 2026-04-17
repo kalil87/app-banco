@@ -13,6 +13,7 @@ public class RepositorioSucursal {
     }
 
     public void eliminar(String numero) {
+
         sucursales.removeIf(c -> c.getNumero().equals(numero));
     }
 
