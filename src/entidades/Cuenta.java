@@ -56,7 +56,7 @@ public class Cuenta {
         return id;
     }
 
-    public Usuario getTitular() {
-        return titular;
+    public void setSucursal(Sucursal sucursal) {
+        this.sucursal = sucursal;
     }
 }
