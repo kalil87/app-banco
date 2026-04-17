@@ -5,6 +5,7 @@ import entidades.Usuario;
 import menu.MenuAdmin;
 import menu.MenuCliente;
 import menu.MenuLogin;
+import servicios.ServicioBanco;
 import servicios.ServicioCuenta;
 import servicios.ServicioTransaccion;
 import servicios.ServicioUsuario;
@@ -14,7 +15,8 @@ public class NavegadorMenus {
     public static void iniciar(
             ServicioUsuario servicioUsuario,
             ServicioCuenta servicioCuenta,
-            ServicioTransaccion servicioTransaccion) {
+            ServicioTransaccion servicioTransaccion,
+            ServicioBanco servicioBanco) {
 
         Usuario usuario = MenuLogin.iniciar(servicioUsuario);
 
@@ -23,7 +25,7 @@ public class NavegadorMenus {
         }
 
         if (usuario.getRol() == Rol.ADMIN) {
-            MenuAdmin.iniciar(servicioCuenta, servicioUsuario);
+            MenuAdmin.iniciar(servicioCuenta, servicioUsuario, servicioBanco);
         } else if (usuario.getRol() == Rol.CLIENTE) {
             MenuCliente.iniciar(usuario, servicioUsuario, servicioCuenta, servicioTransaccion);
         } else {

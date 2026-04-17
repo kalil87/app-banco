@@ -15,4 +15,8 @@ public class RepositorioUsuario {
     public List<Usuario> obtenerTodos() {
         return usuarios;
     }
+
+    public void eliminarUsuario(Usuario u) {
+        usuarios.remove(u);
+    }
 }

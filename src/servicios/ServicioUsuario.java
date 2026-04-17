@@ -51,4 +51,13 @@ public class ServicioUsuario {
         repo.guardar(u);
         return u;
     }
+
+    public void eliminarUsuarioPorCuenta(Cuenta c) {
+        for (Usuario u : repo.obtenerTodos()) {
+            if (u.getCuenta() == c) {
+                repo.eliminarUsuario(u);
+                return;
+            }
+        }
+    }
 }

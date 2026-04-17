@@ -45,17 +45,8 @@ public class ServicioCuenta {
         return cuenta;
     }
 
-    public void eliminarCuenta(String numeroSucursal, String numeroCuenta) {
-
-        Sucursal s = validarSucursal(numeroSucursal);
-
-        Cuenta cuenta = repoC.buscarPorId(numeroCuenta);
-
-        if (cuenta == null) {
-            throw new RuntimeException("Cuenta no válida");
-        }
-
-        repoC.eliminar(cuenta.getId());
+    public void eliminarCuenta(Cuenta c) {
+        repoC.eliminar(c.getId());
     }
 
     public Sucursal validarSucursal(String numero) {
