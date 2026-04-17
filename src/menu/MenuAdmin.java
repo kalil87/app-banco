@@ -3,12 +3,13 @@ package menu;
 import entidades.*;
 import servicios.ServicioBanco;
 import servicios.ServicioCuenta;
+import servicios.ServicioSucursal;
 import servicios.ServicioUsuario;
 
 import java.util.Scanner;
 
 public class MenuAdmin {
-    public static void iniciar(ServicioCuenta servicioCuenta, ServicioUsuario servicioUsuario, ServicioBanco servicioBanco) {
+    public static void iniciar(ServicioCuenta servicioCuenta, ServicioUsuario servicioUsuario, ServicioBanco servicioBanco, ServicioSucursal servicioSucursal) {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
@@ -18,6 +19,7 @@ public class MenuAdmin {
             System.out.println("2 Eliminar cuenta");
             System.out.println("3 Ver balance global");
             System.out.println("4 Ver balance por sucursal");
+            System.out.println("5 Cambiar de sucursal");
             System.out.println("0 Salir");
 
             opcion = sc.nextInt();
@@ -83,6 +85,18 @@ public class MenuAdmin {
 
                     double total = servicioBanco.balancePorSucursal(numero);
                     System.out.println("Balance sucursal: " + total);
+                }
+
+                case 5 -> {
+                    System.out.print("ID cuenta: ");
+                    String idCuenta = sc.nextLine();
+
+                    System.out.print("Sucursal destino: ");
+                    String destino = sc.nextLine();
+
+                    servicioSucursal.cambiarSucursal(idCuenta, destino);
+
+                    System.out.println("Sucursal actualizada");
                 }
             }
 
